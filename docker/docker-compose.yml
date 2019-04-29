@@ -24,6 +24,8 @@ services:
   mysql:
     build:
       context: ./mysql
+    volumes:
+      - /opt/mysql_data:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=mydb
       - MYSQL_USER=myuser
