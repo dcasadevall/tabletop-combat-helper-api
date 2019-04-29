@@ -29,6 +29,15 @@ Change the volume entry at ./docker/docker_compose.yml if you wish to change tha
 
 Simply use any cloud service to deploy your docker compose setup and access it remotely. This may be quicker and more reliable than going with an FTP dump of the source.
 
-# Deploying the server (without docker)
+IMPORTANT: Before you deploy remotely, remember to change the mysql parameters in ./docker/docker_compose.yml to some real ones.
+
+    environment:
+      - MYSQL_DATABASE=mydb
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=docker
+
+# Deploying the server (without docker) - Not preferred
 
 Simply dump the code into a hosted supporting PHP 7.0 and MySQL 5.3+. This is the least preferred option, but will get you up and running with one of the few free hosting services that let you have a PHP + MySQL instance.
+You will need to setup the mysql schema with the data in docker/mysql/schema.sql.
