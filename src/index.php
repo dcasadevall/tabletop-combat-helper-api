@@ -4,14 +4,24 @@ require 'vendor/autoload.php';
 
 // Setup DI.
 $containerBuilder = new DI\ContainerBuilder();
+$containerBuilder->addDefinitions('logging/ContainerDefinitions.php');
 $containerBuilder->addDefinitions('campaigns/ContainerDefinitions.php');
 $container = $containerBuilder->build();
 
 $campaignDispatcher = $container->get('CampaignDispatcher');
 
 // Setup Routes
-Flight::route('/', function(){
-    echo 'hello world!';
+Flight::route('/campaigns/list', function() use ($campaignDispatcher) {
+    echo $campaignDispatcher->ListCampaigns();
+});
+
+Flight::route('/campaigns/save', function() use ($campaignDispatcher) {
+    $request = Flight::request();
+    echo $campaignDispatcher->SaveCampaign(json_encode($request->data));
+});
+
+Flight::route('/campaigns/remove/@id', function($campaignId) use ($campaignDispatcher) {
+    echo $campaignDispatcher->RemoveCampaign($campaignId);
 });
 
 Flight::start();

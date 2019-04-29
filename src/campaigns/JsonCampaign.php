@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__) . '/Campaign.php';
+
 class JsonCampaign implements Campaign {
     /**
      * @var String

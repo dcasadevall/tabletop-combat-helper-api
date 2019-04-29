@@ -1,21 +1,36 @@
 <?php
 
+require_once dirname(__FILE__) . '/CampaignDispatcher.php';
+require_once dirname(__FILE__) . '/JsonCampaign.php';
+
 class JSONCampaignDispatcher implements CampaignDispatcher {
     /**
      * @var CampaignRequestHandler
      */
     private $requestHandler;
 
-    public function __construct(CampaignRequestHandler $requestHandler) {
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    public function __construct(CampaignRequestHandler $requestHandler, Logger $logger) {
         $this->requestHandler = $requestHandler;
+        $this->logger = $logger;
     }
 
     /**
      * @return false|string JSON representation of the campaign list.
      */
     public function ListCampaigns() {
+        try {
+            $campaignList = $this->requestHandler->ListCampaigns();
+        } catch (Exception $e) {
+            $this->logger->log(new LogLevel(LogLevel::ERROR), 'Error listing campaigns: $e');
+            return json_encode(['success' => 'false']);
+        }
+
         $jsonCampaigns = [];
-        $campaignList = $this->requestHandler->ListCampaigns();
         foreach ($campaignList as $campaign) {
             $jsonCampaigns[] = JsonCampaign::ToJsonObject($campaign);
         }
@@ -28,9 +43,15 @@ class JSONCampaignDispatcher implements CampaignDispatcher {
      * @return false|string Json result.
      */
     public function SaveCampaign(String $campaignJson) {
-        $campaign = new JsonCampaign($campaignJson);
-        $success = $this->requestHandler->SaveCampaign($campaign);
-        return json_encode(['success' => $success]);
+        try {
+            $campaign = new JsonCampaign($campaignJson);
+            $success = $this->requestHandler->SaveCampaign($campaign);
+        } catch (Exception $e) {
+            $this->logger->log(new LogLevel(LogLevel::ERROR), "Error saving campaign. JSON: $campaignJson. Exception: $e");
+            return json_encode(['success' => 'false']);
+        }
+
+        return json_encode(['success' => $success ? 'true' : 'false']);
     }
 
     /**
@@ -38,7 +59,13 @@ class JSONCampaignDispatcher implements CampaignDispatcher {
      * @return false|string Json result.
      */
     public function RemoveCampaign(String $campaignId) {
-        $success = $this->requestHandler->RemoveCampaign($campaignId);
-        return json_encode(['success' => $success]);
+        try {
+            $success = $this->requestHandler->RemoveCampaign($campaignId);
+        } catch (Exception $e) {
+            $this->logger->log(new LogLevel(LogLevel::ERROR), "Error removing campaign. CampaignId: $campaignId. Exception: $e");
+            return json_encode(['success' => 'false']);
+        }
+
+        return json_encode(['success' => $success ? 'true' : 'false']);
     }
 }
