@@ -1,7 +1,5 @@
 <?php
 
-namespace Campaigns;
-
 interface Campaign {
     /**
      * @return String A unique identifier representing this campaign.

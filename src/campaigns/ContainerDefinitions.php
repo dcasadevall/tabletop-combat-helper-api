@@ -1,6 +1,5 @@
 <?php
 
-namespace Campaigns;
 
 use function DI\get;
 

@@ -1,7 +1,5 @@
 <?php
 
-namespace Campaigns;
-
 class MysqlCampaignRequestHandler implements CampaignRequestHandler  {
     /**
      * @return Campaign[] A list of campaigns

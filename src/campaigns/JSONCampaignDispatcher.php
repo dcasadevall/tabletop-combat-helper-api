@@ -1,7 +1,5 @@
 <?php
 
-namespace Campaigns;
-
 class JSONCampaignDispatcher implements CampaignDispatcher {
     /**
      * @var CampaignRequestHandler

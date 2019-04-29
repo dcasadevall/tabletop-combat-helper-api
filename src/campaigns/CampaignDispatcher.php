@@ -1,7 +1,5 @@
 <?php
 
-namespace Campaigns;
-
 interface CampaignDispatcher {
     /**
      * @return false|string JSON representation of the campaign list.

@@ -1,7 +1,5 @@
 <?php
 
-namespace Campaigns;
-
 interface CampaignRequestHandler {
     /**
      * @return Campaign[] A list of campaigns

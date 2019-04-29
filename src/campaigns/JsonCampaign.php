@@ -1,7 +1,5 @@
 <?php
 
-namespace Campaigns;
-
 class JsonCampaign implements Campaign {
     /**
      * @var String
