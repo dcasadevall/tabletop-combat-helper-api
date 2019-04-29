@@ -1,10 +1,15 @@
 <?php
 
+// TODO: Autoloading should work here..
+use function DI\autowire;
 
-use function DI\get;
+include dirname(__FILE__) . '/CampaignDispatcher.php';
+include dirname(__FILE__) . '/JSONCampaignDispatcher.php';
+include dirname(__FILE__) . '/CampaignRequestHandler.php';
+include dirname(__FILE__) . '/MysqlCampaignRequestHandler.php';
 
 return [
-    CampaignRequestHandler::class => get(MysqlCampaignRequestHandler::class),
-    CampaignDispatcher::class => get(JSONCampaignDispatcher::class),
+    'CampaignRequestHandler' => autowire('MysqlCampaignRequestHandler'),
+    'CampaignDispatcher' => autowire('JSONCampaignDispatcher'),
 ];
 
