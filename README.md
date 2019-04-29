@@ -17,7 +17,7 @@ You can find these here:
 
 From ./docker:
 
-  docker-compose up
+    docker-compose up
   
 This will create a new set of mysql + php + nginx containers running the API.
 You will now be able to hit the API by pinging localhost:8080.
