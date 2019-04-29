@@ -2,7 +2,7 @@
 
 namespace Campaigns;
 
-class JSONCampaignDispatcher {
+class JSONCampaignDispatcher implements CampaignDispatcher {
     /**
      * @var CampaignRequestHandler
      */

@@ -2,12 +2,12 @@
 
 require 'vendor/autoload.php';
 
-// Setup DI. We do not interface dispatchers as we don't have a different implementation at the moment,
+// Setup DI.
 $containerBuilder = new DI\ContainerBuilder();
 $containerBuilder->addDefinitions('campaigns/ContainerDefinitions.php');
 $container = $containerBuilder->build();
 
-$JSONCampaignDispatcher = $container->get('JSONCampaignDispatcher');
+$campaignDispatcher = $container->get('CampaignDispatcher');
 
 // Setup Routes
 Flight::route('/', function(){
