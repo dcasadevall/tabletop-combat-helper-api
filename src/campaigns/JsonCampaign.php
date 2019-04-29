@@ -16,14 +16,14 @@ class JsonCampaign implements Campaign {
     /**
      * @return String A unique identifier representing this campaign.
      */
-    function GetCampaignId() {
+    function getCampaignId() {
         return $this->GetCampaignId();
     }
 
     /**
      * @return String Name of the campaign.
      */
-    function GetName() {
+    function getName() {
         return $this->GetName();
     }
 

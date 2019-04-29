@@ -12,6 +12,7 @@
   "require": {
     "mikecao/flight": "v1.3.7",
     "php-di/php-di": "6.0.8",
-    "ext-json": "*"
+    "ext-json": "*",
+    "catfan/medoo": "v1.6.1"
   }
 }

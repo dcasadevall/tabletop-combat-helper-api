@@ -4,17 +4,17 @@ interface CampaignDispatcher {
     /**
      * @return false|string JSON representation of the campaign list.
      */
-    public function ListCampaigns();
+    public function listCampaigns();
 
     /**
      * @param String $campaignJson A json string representing the campaign to save.
      * @return false|string Json result.
      */
-    public function SaveCampaign(String $campaignJson);
+    public function saveCampaign(String $campaignJson);
 
     /**
      * @param String $campaignId
      * @return false|string Json result.
      */
-    public function RemoveCampaign(String $campaignId);
+    public function removeCampaign(String $campaignId);
 }

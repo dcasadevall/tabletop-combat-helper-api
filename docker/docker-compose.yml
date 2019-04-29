@@ -20,6 +20,8 @@ services:
         - 9000
     volumes:
         - ../src:/var/www/html
+    links:
+        - mysql
 
   mysql:
     build:

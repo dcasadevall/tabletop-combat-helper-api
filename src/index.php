@@ -5,6 +5,7 @@ require 'vendor/autoload.php';
 // Setup DI.
 $containerBuilder = new DI\ContainerBuilder();
 $containerBuilder->addDefinitions('logging/ContainerDefinitions.php');
+$containerBuilder->addDefinitions('persistence/ContainerDefinitions.php');
 $containerBuilder->addDefinitions('campaigns/ContainerDefinitions.php');
 $container = $containerBuilder->build();
 

@@ -22,7 +22,7 @@ class JSONCampaignDispatcher implements CampaignDispatcher {
     /**
      * @return false|string JSON representation of the campaign list.
      */
-    public function ListCampaigns() {
+    public function listCampaigns() {
         try {
             $campaignList = $this->requestHandler->ListCampaigns();
         } catch (Exception $e) {
@@ -42,7 +42,7 @@ class JSONCampaignDispatcher implements CampaignDispatcher {
      * @param String $campaignJson A json string representing the campaign to save.
      * @return false|string Json result.
      */
-    public function SaveCampaign(String $campaignJson) {
+    public function saveCampaign(String $campaignJson) {
         try {
             $campaign = new JsonCampaign($campaignJson);
             $success = $this->requestHandler->SaveCampaign($campaign);
@@ -58,7 +58,7 @@ class JSONCampaignDispatcher implements CampaignDispatcher {
      * @param String $campaignId
      * @return false|string Json result.
      */
-    public function RemoveCampaign(String $campaignId) {
+    public function removeCampaign(String $campaignId) {
         try {
             $success = $this->requestHandler->RemoveCampaign($campaignId);
         } catch (Exception $e) {

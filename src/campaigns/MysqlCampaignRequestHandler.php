@@ -4,7 +4,7 @@ class MysqlCampaignRequestHandler implements CampaignRequestHandler  {
     /**
      * @return Campaign[] A list of campaigns
      */
-    public function ListCampaigns() {
+    public function listCampaigns() {
         // TODO: Implement ListCampaigns() method.
     }
 
@@ -15,7 +15,7 @@ class MysqlCampaignRequestHandler implements CampaignRequestHandler  {
      * @param Campaign $campaign
      * @return bool True if successfully saved. False otherwise.
      */
-    public function SaveCampaign(Campaign $campaign) {
+    public function saveCampaign(Campaign $campaign) {
         // TODO: Implement SaveCampaign() method.
     }
 
@@ -25,7 +25,7 @@ class MysqlCampaignRequestHandler implements CampaignRequestHandler  {
      * @param String $campaignId
      * @return bool True if successfully removed. False otherwise.
      */
-    public function RemoveCampaign(String $campaignId) {
+    public function removeCampaign(String $campaignId) {
         // TODO: Implement RemoveCampaign() method.
     }
 }
