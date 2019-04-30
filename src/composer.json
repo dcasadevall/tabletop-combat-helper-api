@@ -14,5 +14,13 @@
     "php-di/php-di": "6.0.8",
     "ext-json": "*",
     "catfan/medoo": "v1.6.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Campaigns\\": "campaigns",
+      "Logging\\": "logging",
+      "Persistence\\": "persistence",
+      "Serialization\\": "serialization"
+    }
   }
 }

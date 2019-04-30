@@ -15,7 +15,7 @@ class MedooDatabase implements Database {
     private $medoo;
 
     public function __construct() {
-        $this->medoo = new Medoo(include dirname(__FILE__) . './MedooConfig.php');
+        $this->medoo = new Medoo(include dirname(__FILE__) . '/MedooConfig.php');
     }
 
     /**
@@ -47,5 +47,14 @@ class MedooDatabase implements Database {
      */
     public function select(String $table, array $columns, array $where) {
         return $this->medoo->select($table, $columns, $where);
+    }
+
+    /**
+     * @param String $table The table to select values from.
+     * @param array $where An array of conditions that must be met for a row to be deleted.
+     * @return bool True if successfully deleted. False otherwise.
+     */
+    public function delete(String $table, array $where) {
+        return $this->medoo->delete($table, $where)->columnCount() > 0;
     }
 }

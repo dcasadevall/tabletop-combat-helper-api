@@ -1,5 +1,7 @@
 <?php
 
+namespace Logging;
+
 require_once dirname(__FILE__) . '/Logger.php';
 
 /**

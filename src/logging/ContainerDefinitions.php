@@ -1,5 +1,7 @@
 <?php
 
+namespace Logging;
+
 use function DI\autowire;
 
 require 'vendor/autoload.php';

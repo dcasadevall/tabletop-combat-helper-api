@@ -5,6 +5,7 @@ require 'vendor/autoload.php';
 use function DI\autowire;
 
 return [
-    'Database' => autowire('MedooDatabase'),
+    'Persistence\Database' => autowire('\Persistence\MedooDatabase'),
+    '\Persistence\Database' => autowire('\Persistence\MedooDatabase'),
 ];
 

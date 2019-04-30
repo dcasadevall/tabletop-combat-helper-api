@@ -1,4 +1,13 @@
-RewriteEngine On
+# Redirect all requests for non-existent files and those not for wp-admin or wp-json
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [QSA,L]
+RewriteRule ^ /apps/tabletop-combat-helper-api/index.php [R=301,L]
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /apps/tabletop-combat-helper-api/index.php [L]
+</IfModule>

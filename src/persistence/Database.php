@@ -18,7 +18,7 @@ interface Database {
 
     /**
      * @param String $table The table to update values from.
-     * @param array $data An array of keyvalue elements defining the column / values to be inserted.
+     * @param array $data An array of key-value elements defining the column / values to be inserted.
      * @param array $where An array of conditions that must be met for a row to be updated.
      * @return bool True if successfully updated. False otherwise.
      */
@@ -31,4 +31,11 @@ interface Database {
      * @return array An array of columns that matched the $where condition.
      */
     public function select(String $table, array $columns, array $where);
+
+    /**
+     * @param String $table The table to select values from.
+     * @param array $where An array of conditions that must be met for a row to be deleted.
+     * @return bool True if successfully deleted. False otherwise.
+     */
+    public function delete(String $table, array $where);
 }

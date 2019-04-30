@@ -9,7 +9,7 @@ $containerBuilder->addDefinitions('persistence/ContainerDefinitions.php');
 $containerBuilder->addDefinitions('campaigns/ContainerDefinitions.php');
 $container = $containerBuilder->build();
 
-$campaignDispatcher = $container->get('CampaignDispatcher');
+$campaignDispatcher = $container->get('\Campaigns\CampaignDispatcher');
 
 // Setup Routes
 Flight::route('/campaigns/list', function() use ($campaignDispatcher) {

@@ -1,5 +1,7 @@
 <?php
 
+namespace Logging;
+
 class LogLevel {
     const INFO = 0;
     const WARNING = 1;

@@ -1,9 +1,11 @@
 <?php
 
-require_once dirname(__FILE__) . '/CampaignDispatcher.php';
-require_once dirname(__FILE__) . '/JsonCampaign.php';
+namespace Campaigns;
 
-class JSONCampaignDispatcher implements CampaignDispatcher {
+use Logging\Logger;
+use Serialization\JsonResult;
+
+class JsonCampaignDispatcher implements CampaignDispatcher {
     /**
      * @var CampaignRequestHandler
      */
@@ -27,12 +29,12 @@ class JSONCampaignDispatcher implements CampaignDispatcher {
             $campaignList = $this->requestHandler->ListCampaigns();
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), 'Error listing campaigns: $e');
-            return json_encode(['success' => 'false']);
+            return JsonResult::error();
         }
 
         $jsonCampaigns = [];
         foreach ($campaignList as $campaign) {
-            $jsonCampaigns[] = JsonCampaign::ToJsonObject($campaign);
+            $jsonCampaigns[] = JsonCampaign::toJsonObject($campaign);
         }
 
         return json_encode($jsonCampaigns);
@@ -48,10 +50,10 @@ class JSONCampaignDispatcher implements CampaignDispatcher {
             $success = $this->requestHandler->SaveCampaign($campaign);
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), "Error saving campaign. JSON: $campaignJson. Exception: $e");
-            return json_encode(['success' => 'false']);
+            return JsonResult::error();
         }
 
-        return json_encode(['success' => $success ? 'true' : 'false']);
+        return new JsonResult($success);
     }
 
     /**
@@ -63,9 +65,9 @@ class JSONCampaignDispatcher implements CampaignDispatcher {
             $success = $this->requestHandler->RemoveCampaign($campaignId);
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), "Error removing campaign. CampaignId: $campaignId. Exception: $e");
-            return json_encode(['success' => 'false']);
+            return JsonResult::error();
         }
 
-        return json_encode(['success' => $success ? 'true' : 'false']);
+        return new JsonResult($success);
     }
 }
