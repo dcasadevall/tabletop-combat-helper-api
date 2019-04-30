@@ -1,5 +1,8 @@
 <?php
 
+// Rename this to MedooConfig.php and fill in with your real DB data.
+// DO NOT EVER commit this file.
+
 return [
     'database_type' => 'mysql',
     'database_name' => 'mydb',
