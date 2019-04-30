@@ -13,6 +13,11 @@ You can find these here:
 
   https://github.com/dcasadevall/tabletop-combat-helper-admin
 
+# Setting up DB (Before deploying)
+
+* Copy src/persistence/MedooConfig.sample.php to src/persistence/MedooConfig.php and change the values to your DB settings.
+* Import src/persistence/schema.sql (This is only needed for non docker deployments) to your DB.
+
 # Deploying the server (Locally with docker)
 
 From ./docker:

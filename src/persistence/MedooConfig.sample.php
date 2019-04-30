@@ -1,6 +1,6 @@
 <?php
 
-// Rename this to MedooConfig.php and fill in with your real DB data.
+// Copy this to MedooConfig.php and fill in with your real DB data.
 // DO NOT EVER commit this file.
 
 return [
