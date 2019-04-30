@@ -4,19 +4,19 @@ namespace Campaigns;
 
 interface CampaignDispatcher {
     /**
-     * @return false|string JSON representation of the campaign list.
+     * @return String Serialized representation of the campaign list.
      */
     public function listCampaigns();
 
     /**
-     * @param String $campaignJson A json string representing the campaign to save.
-     * @return false|string Json result.
+     * @param array $campaignKeyValues A set of key-value pairs representing the campaign to save.
+     * @return String Serialized representation of the operation result.
      */
-    public function saveCampaign(String $campaignJson);
+    public function saveCampaign(array $campaignKeyValues);
 
     /**
      * @param String $campaignId
-     * @return false|string Json result.
+     * @return String Serialized representation of the operation result.
      */
     public function removeCampaign(String $campaignId);
 }

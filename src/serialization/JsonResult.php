@@ -8,19 +8,25 @@ class JsonResult {
      */
     private $success;
 
-    public static function success() {
-        return new JsonResult(true);
+    /**
+     * @var array
+     */
+    private $data;
+
+    public static function success(array $data) {
+        return new JsonResult(true, $data);
     }
 
     public static function error() {
         return new JsonResult(false);
     }
 
-    public function __construct(bool $success) {
+    public function __construct(bool $success, array $data = []) {
         $this->success = $success;
+        $this->data = $data;
     }
 
-    public function getJsonString() {
-        return json_encode(['success' => $this->success ? 'true' : 'false']);
+    public function jsonString() {
+        return json_encode(['success' => $this->success ? 'true' : 'false', 'data' => $this->data]);
     }
 }

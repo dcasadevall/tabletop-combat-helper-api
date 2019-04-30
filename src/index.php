@@ -18,7 +18,7 @@ Flight::route('/campaigns/list', function() use ($campaignDispatcher) {
 
 Flight::route('/campaigns/save', function() use ($campaignDispatcher) {
     $request = Flight::request();
-    echo $campaignDispatcher->SaveCampaign(json_encode($request->data));
+    echo $campaignDispatcher->SaveCampaign($request->data);
 });
 
 Flight::route('/campaigns/remove/@id', function($campaignId) use ($campaignDispatcher) {

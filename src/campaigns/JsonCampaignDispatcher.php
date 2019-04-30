@@ -2,7 +2,9 @@
 
 namespace Campaigns;
 
+use Exception;
 use Logging\Logger;
+use Logging\LogLevel;
 use Serialization\JsonResult;
 
 class JsonCampaignDispatcher implements CampaignDispatcher {
@@ -22,14 +24,14 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
     }
 
     /**
-     * @return false|string JSON representation of the campaign list.
+     * @return String JSON representation of the campaign list.
      */
     public function listCampaigns() {
         try {
             $campaignList = $this->requestHandler->ListCampaigns();
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), 'Error listing campaigns: $e');
-            return JsonResult::error();
+            return JsonResult::error()->jsonString();
         }
 
         $jsonCampaigns = [];
@@ -37,23 +39,23 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
             $jsonCampaigns[] = JsonCampaign::toJsonObject($campaign);
         }
 
-        return json_encode($jsonCampaigns);
+        return JsonResult::success($campaignList)->jsonString();
     }
 
     /**
-     * @param String $campaignJson A json string representing the campaign to save.
-     * @return false|string Json result.
+     * @param array $campaignKeyValuePair A json string representing the campaign to save.
+     * @return String Json representation of the operation result.
      */
-    public function saveCampaign(String $campaignJson) {
+    public function saveCampaign(array $campaignKeyValuePair) {
         try {
-            $campaign = new JsonCampaign($campaignJson);
+            $campaign = new JsonCampaign($campaignKeyValuePair);
             $success = $this->requestHandler->SaveCampaign($campaign);
         } catch (Exception $e) {
-            $this->logger->log(new LogLevel(LogLevel::ERROR), "Error saving campaign. JSON: $campaignJson. Exception: $e");
-            return JsonResult::error();
+            $this->logger->log(new LogLevel(LogLevel::ERROR), "Error saving campaign. JSON: $campaignKeyValuePair. Exception: $e");
+            return JsonResult::error()->jsonString();
         }
 
-        return new JsonResult($success);
+        return (new JsonResult($success))->jsonString();
     }
 
     /**
@@ -65,9 +67,9 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
             $success = $this->requestHandler->RemoveCampaign($campaignId);
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), "Error removing campaign. CampaignId: $campaignId. Exception: $e");
-            return JsonResult::error();
+            return JsonResult::error()->jsonString();
         }
 
-        return new JsonResult($success);
+        return (new JsonResult($success))->jsonString();
     }
 }
