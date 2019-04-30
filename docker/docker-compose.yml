@@ -15,7 +15,8 @@ services:
         - php-fpm
 
   php-fpm:
-    image: php:7-fpm
+    build:
+        context: ./php-fpm
     expose: 
         - 9000
     volumes:
