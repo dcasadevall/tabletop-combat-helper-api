@@ -46,18 +46,18 @@ class JsonCampaign implements Campaign {
      * @return String A unique identifier representing this campaign.
      */
     function getCampaignId() {
-        return $this->GetCampaignId();
+        return $this->campaignId;
     }
 
     /**
      * @return String Name of the campaign.
      */
     function getName() {
-        return $this->GetName();
+        return $this->name;
     }
 
-    public function __construct($campaignJson) {
-        $this->name = $campaignJson['name'];
-        $this->campaignId = $campaignJson['campaignId'];
+    public function __construct($campaignJsonObject) {
+        $this->name = $campaignJsonObject['name'];
+        $this->campaignId = $campaignJsonObject['id'];
     }
 }

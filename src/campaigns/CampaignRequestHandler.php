@@ -13,7 +13,7 @@ interface CampaignRequestHandler {
      * Creates a new one if the given campaign id is empty.
      *
      * @param Campaign $campaign
-     * @return bool True if successfully saved. False otherwise.
+     * @return String Id of the saved campaign. Null if unsuccessful.
      */
     public function saveCampaign(Campaign $campaign);
 

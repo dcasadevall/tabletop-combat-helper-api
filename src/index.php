@@ -11,6 +11,10 @@ $container = $containerBuilder->build();
 
 $campaignDispatcher = $container->get('\Campaigns\CampaignDispatcher');
 
+// OPTIONS need to be successful but we don't want to trigger any logic.
+Flight::route('OPTIONS *', function() use ($campaignDispatcher) {
+});
+
 // Setup Routes
 Flight::route('/campaigns/list', function() use ($campaignDispatcher) {
     echo $campaignDispatcher->ListCampaigns();

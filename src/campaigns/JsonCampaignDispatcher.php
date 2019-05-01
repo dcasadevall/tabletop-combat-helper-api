@@ -28,7 +28,7 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
      */
     public function listCampaigns() {
         try {
-            $campaignList = $this->requestHandler->ListCampaigns();
+            $campaignList = $this->requestHandler->listCampaigns();
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), 'Error listing campaigns: $e');
             return JsonResult::error()->jsonString();
@@ -43,18 +43,19 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
     }
 
     /**
-     * @param array $campaignKeyValuePair A json string representing the campaign to save.
+     * @param $campaignKeyValuePair Object A key-value pair object representing the campaign to save.
      * @return String Json representation of the operation result.
      */
-    public function saveCampaign(array $campaignKeyValuePair) {
+    public function saveCampaign($campaignKeyValuePair) {
         try {
             $campaign = new JsonCampaign($campaignKeyValuePair);
-            $success = $this->requestHandler->SaveCampaign($campaign);
+            $campaignId = $this->requestHandler->saveCampaign($campaign);
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), "Error saving campaign. JSON: $campaignKeyValuePair. Exception: $e");
             return JsonResult::error()->jsonString();
         }
 
+        $success = $campaignId != null;
         return (new JsonResult($success))->jsonString();
     }
 
@@ -64,7 +65,7 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
      */
     public function removeCampaign(String $campaignId) {
         try {
-            $success = $this->requestHandler->RemoveCampaign($campaignId);
+            $success = $this->requestHandler->removeCampaign($campaignId);
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), "Error removing campaign. CampaignId: $campaignId. Exception: $e");
             return JsonResult::error()->jsonString();

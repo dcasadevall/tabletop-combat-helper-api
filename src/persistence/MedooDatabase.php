@@ -20,17 +20,17 @@ class MedooDatabase implements Database {
 
     /**
      * @param String $table The table to insert values into.
-     * @param array $data An array of keyvalue elements defining the column / values to be inserted.
-     * @return bool True if successfully inserted. False otherwise.
+     * @param array $data An array of key-value elements defining the column / values to be inserted.
+     * @return array The key-value pairs of the successfully updated row. Empty array or null otherwise.
      */
     public function insert(String $table, array $data) {
         $result = $this->medoo->insert($table, $data);
-        return $result->rowCount() > 0;
+        return $result->fetch();
     }
 
     /**
      * @param String $table The table to update values from.
-     * @param array $data An array of keyvalue elements defining the column / values to be inserted.
+     * @param array $data An array of key-value elements defining the column / values to be inserted.
      * @param array $where An array of conditions that must be met for a row to be updated.
      * @return bool True if successfully updated. False otherwise.
      */

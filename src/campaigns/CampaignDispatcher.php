@@ -9,10 +9,11 @@ interface CampaignDispatcher {
     public function listCampaigns();
 
     /**
-     * @param array $campaignKeyValues A set of key-value pairs representing the campaign to save.
-     * @return String Serialized representation of the operation result.
+     * @param $campaignKeyValues A set of key-value pairs representing the campaign to save.
+     * @return String Serialized representation of the operation result. Includes the campaign id if successfully
+     * created / updated.
      */
-    public function saveCampaign(array $campaignKeyValues);
+    public function saveCampaign($campaignKeyValues);
 
     /**
      * @param String $campaignId

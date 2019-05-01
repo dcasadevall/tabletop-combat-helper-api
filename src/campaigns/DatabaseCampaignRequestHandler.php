@@ -44,15 +44,23 @@ class DatabaseCampaignRequestHandler implements CampaignRequestHandler {
      * Creates a new one if the given campaign id is empty.
      *
      * @param Campaign $campaign
-     * @return bool True if successfully saved. False otherwise.
+     * @return String Id of the saved campaign. Null if unsuccessful.
      */
     public function saveCampaign(Campaign $campaign) {
         $jsonCampaign = JsonCampaign::toJsonObject($campaign);
-        return $this->database->update(
-            self::TABLE_NAME,
-            $jsonCampaign,
-            JsonCampaign::getWhereIdConstraint($campaign->getCampaignId())
-        );
+
+        if (!empty($campaign->getCampaignId())) {
+            $success = $this->database->update(
+                self::TABLE_NAME,
+                $jsonCampaign,
+                JsonCampaign::getWhereIdConstraint($campaign->getCampaignId())
+            );
+
+            return $success ? $campaign->getCampaignId() : null;
+        } else {
+            $result = $this->database->insert(self::TABLE_NAME, $jsonCampaign);
+            return (new JsonCampaign($result))->getCampaignId();
+        }
     }
 
     /**
