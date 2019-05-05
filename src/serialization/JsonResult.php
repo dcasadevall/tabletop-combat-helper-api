@@ -27,6 +27,6 @@ class JsonResult {
     }
 
     public function jsonString() {
-        return json_encode(['success' => $this->success ? 'true' : 'false', 'data' => $this->data]);
+        return json_encode(['success' => !empty($this->success), 'data' => $this->data]);
     }
 }

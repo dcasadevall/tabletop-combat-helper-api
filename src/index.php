@@ -17,16 +17,16 @@ Flight::route('OPTIONS *', function() use ($campaignDispatcher) {
 
 // Setup Routes
 Flight::route('/campaigns/list', function() use ($campaignDispatcher) {
-    echo $campaignDispatcher->ListCampaigns();
+    echo $campaignDispatcher->listCampaigns();
 });
 
 Flight::route('/campaigns/save', function() use ($campaignDispatcher) {
     $request = Flight::request();
-    echo $campaignDispatcher->SaveCampaign($request->data);
+    echo $campaignDispatcher->saveCampaign($request->data);
 });
 
 Flight::route('/campaigns/remove/@id', function($campaignId) use ($campaignDispatcher) {
-    echo $campaignDispatcher->RemoveCampaign($campaignId);
+    echo $campaignDispatcher->removeCampaign($campaignId);
 });
 
 Flight::start();

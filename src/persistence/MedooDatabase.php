@@ -21,11 +21,11 @@ class MedooDatabase implements Database {
     /**
      * @param String $table The table to insert values into.
      * @param array $data An array of key-value elements defining the column / values to be inserted.
-     * @return array The key-value pairs of the successfully updated row. Empty array or null otherwise.
+     * @return String The last inserted id.
      */
     public function insert(String $table, array $data) {
-        $result = $this->medoo->insert($table, $data);
-        return $result->fetch();
+        $this->medoo->insert($table, $data);
+        return $this->medoo->id();
     }
 
     /**

@@ -58,8 +58,7 @@ class DatabaseCampaignRequestHandler implements CampaignRequestHandler {
 
             return $success ? $campaign->getCampaignId() : null;
         } else {
-            $result = $this->database->insert(self::TABLE_NAME, $jsonCampaign);
-            return (new JsonCampaign($result))->getCampaignId();
+            return $this->database->insert(self::TABLE_NAME, $jsonCampaign);
         }
     }
 

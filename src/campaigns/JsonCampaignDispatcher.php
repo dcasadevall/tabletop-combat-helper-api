@@ -39,7 +39,7 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
             $jsonCampaigns[] = JsonCampaign::toJsonObject($campaign);
         }
 
-        return JsonResult::success($campaignList)->jsonString();
+        return JsonResult::success($jsonCampaigns)->jsonString();
     }
 
     /**
@@ -48,7 +48,9 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
      */
     public function saveCampaign($campaignKeyValuePair) {
         try {
+            print_r($campaignKeyValuePair);
             $campaign = new JsonCampaign($campaignKeyValuePair);
+            print_r($campaign);
             $campaignId = $this->requestHandler->saveCampaign($campaign);
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), "Error saving campaign. JSON: $campaignKeyValuePair. Exception: $e");
@@ -56,7 +58,7 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
         }
 
         $success = $campaignId != null;
-        return (new JsonResult($success))->jsonString();
+        return (new JsonResult($success, ["id", $campaignId]))->jsonString();
     }
 
     /**

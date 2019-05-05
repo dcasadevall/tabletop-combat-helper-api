@@ -20,7 +20,12 @@ class JsonCampaign implements Campaign {
      * @return array Returns an array representing the key-value pair that will be used for json serialization.
      */
     public static function toJsonObject(Campaign $campaign) {
-        return ['name' => $campaign->GetName(), 'campaignId' => $campaign->GetCampaignId()];
+        $jsonObject = ['name' => $campaign->GetName()];
+        if (!empty($campaign->getCampaignId())) {
+            $jsonObject['id'] = $campaign->getCampaignId();
+        }
+
+        return $jsonObject;
     }
 
     /**
