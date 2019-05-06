@@ -36,7 +36,7 @@ class MedooDatabase implements Database {
      */
     public function update(String $table, array $data, array $where) {
         $result = $this->medoo->update($table, $data, $where);
-        return $result->errorCode() == null;
+        return intval($result->errorCode()) == 0;
     }
 
     /**
@@ -55,6 +55,6 @@ class MedooDatabase implements Database {
      * @return bool True if successfully deleted. False otherwise.
      */
     public function delete(String $table, array $where) {
-        return $this->medoo->delete($table, $where)->columnCount() > 0;
+        return $this->medoo->delete($table, $where)->rowCount() > 0;
     }
 }

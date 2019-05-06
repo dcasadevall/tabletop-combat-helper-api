@@ -43,22 +43,37 @@ class JsonCampaignDispatcher implements CampaignDispatcher {
     }
 
     /**
-     * @param $campaignKeyValuePair Object A key-value pair object representing the campaign to save.
-     * @return String Json representation of the operation result.
+     * @param $campaignKeyValuePair array A set of key-value pairs representing the campaign to save.
+     * @return String Serialized representation of the operation result.
      */
     public function saveCampaign($campaignKeyValuePair) {
         try {
-            print_r($campaignKeyValuePair);
             $campaign = new JsonCampaign($campaignKeyValuePair);
-            print_r($campaign);
-            $campaignId = $this->requestHandler->saveCampaign($campaign);
+            $success = $this->requestHandler->saveCampaign($campaign);
+        } catch (Exception $e) {
+            $this->logger->log(new LogLevel(LogLevel::ERROR), "Error saving campaign. JSON: $campaignKeyValuePair. Exception: $e");
+            return JsonResult::error()->jsonString();
+        }
+
+        return (new JsonResult($success))->jsonString();
+    }
+
+    /**
+     * @param $campaignKeyValuePair array A set of key-value pairs representing the campaign to create.
+     * @return String Serialized representation of the operation result. Includes the campaign id if successfully
+     * created.
+     */
+    public function createCampaign($campaignKeyValuePair) {
+        try {
+            $campaign = new JsonCampaign($campaignKeyValuePair);
+            $campaignId = $this->requestHandler->createCampaign($campaign->getName());
         } catch (Exception $e) {
             $this->logger->log(new LogLevel(LogLevel::ERROR), "Error saving campaign. JSON: $campaignKeyValuePair. Exception: $e");
             return JsonResult::error()->jsonString();
         }
 
         $success = $campaignId != null;
-        return (new JsonResult($success, ["id", $campaignId]))->jsonString();
+        return (new JsonResult($success, ["id" => $campaignId]))->jsonString();
     }
 
     /**

@@ -25,6 +25,11 @@ Flight::route('/campaigns/save', function() use ($campaignDispatcher) {
     echo $campaignDispatcher->saveCampaign($request->data);
 });
 
+Flight::route('/campaigns/create', function() use ($campaignDispatcher) {
+    $request = Flight::request();
+    echo $campaignDispatcher->createCampaign($request->data);
+});
+
 Flight::route('/campaigns/remove/@id', function($campaignId) use ($campaignDispatcher) {
     echo $campaignDispatcher->removeCampaign($campaignId);
 });

@@ -2,6 +2,8 @@
 
 namespace Campaigns;
 
+use Logging\Logger;
+use Logging\LogLevel;
 use Persistence\Database;
 
 /**
@@ -20,9 +22,14 @@ class DatabaseCampaignRequestHandler implements CampaignRequestHandler {
      * @var Database
      */
     private $database;
+    /**
+     * @var Logger
+     */
+    private $logger;
 
-    public function __construct(Database $database) {
+    public function __construct(Database $database, Logger $logger) {
         $this->database = $database;
+        $this->logger = $logger;
     }
 
     /**
@@ -41,25 +48,23 @@ class DatabaseCampaignRequestHandler implements CampaignRequestHandler {
 
     /**
      * Saves the campaign to the persistence layer.
-     * Creates a new one if the given campaign id is empty.
      *
      * @param Campaign $campaign
-     * @return String Id of the saved campaign. Null if unsuccessful.
+     * @return bool True if successful. False otherwise.
      */
     public function saveCampaign(Campaign $campaign) {
         $jsonCampaign = JsonCampaign::toJsonObject($campaign);
 
-        if (!empty($campaign->getCampaignId())) {
-            $success = $this->database->update(
-                self::TABLE_NAME,
-                $jsonCampaign,
-                JsonCampaign::getWhereIdConstraint($campaign->getCampaignId())
-            );
-
-            return $success ? $campaign->getCampaignId() : null;
-        } else {
-            return $this->database->insert(self::TABLE_NAME, $jsonCampaign);
+        if (empty($campaign->getCampaignId())) {
+            $this->logger->log(new LogLevel(LogLevel::ERROR), "Saving campaign with empty campaignId.");
+            return false;
         }
+
+        return $this->database->update(
+            self::TABLE_NAME,
+            $jsonCampaign,
+            JsonCampaign::getWhereIdConstraint($campaign->getCampaignId())
+        );
     }
 
     /**
@@ -70,5 +75,15 @@ class DatabaseCampaignRequestHandler implements CampaignRequestHandler {
      */
     public function removeCampaign(String $campaignId) {
         return $this->database->delete(self::TABLE_NAME, JsonCampaign::getWhereIdConstraint($campaignId));
+    }
+
+    /**
+     * Creates a new campaign with the given data.
+     *
+     * @param String $name campaign name.
+     * @return String Id of the newly created campaign. Null if unsuccessful.
+     */
+    public function createCampaign(String $name) {
+        return $this->database->insert(self::TABLE_NAME, ["name" => $name]);
     }
 }
