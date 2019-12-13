@@ -1,3 +1,7 @@
+# DEPRECATED
+
+This project is deprecated, as Unity assets are now loaded via asset bundles.
+
 # Tabletop Combat Helper API
 
 This project contains the source for a backend API used to store assets and configuration data
